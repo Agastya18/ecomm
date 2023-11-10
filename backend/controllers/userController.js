@@ -1,6 +1,6 @@
 import User from "../models/userModel.js";
-import { hashPassword } from "../utils/authUtils.js";
-
+import { comparePassword, hashPassword } from "../utils/authUtils.js";
+import JWT from "jsonwebtoken";
 export const register =async (req,res)=>{
     try {
         const {name,email, password,phone,address} = req.body;
@@ -70,4 +70,55 @@ export const register =async (req,res)=>{
             message:"register failed"
         })
     }
+}
+
+
+// Login user
+export const login =async (req,res)=>{
+      try {
+        const {email, password} = req.body;
+        if(!email || !password)
+        {
+            return res.status(400).json({
+                success:false,
+                message:"email or password is required"
+            })
+        
+        }
+       
+        // existing user check
+        const existingUser= await User.findOne({email});
+        if(!existingUser)
+        {
+            return res.status(400).json({
+                success:false,
+                message:"email is not registered"
+            })
+        
+        }
+        //check password
+        const matchPassword = await comparePassword(password,existingUser.password);
+        if(!matchPassword)
+        {
+            return res.status(400).json({
+                success:false,
+                message:"password or email  is not correct"
+            })
+        
+        }
+        //token generation
+        const token =  JWT.sign({id:existingUser._id},process.env.JWT_Secret,{expiresIn:"7d"});
+        res.status(200).json({
+            success:true,
+            message:"login success",
+            existingUser,
+            token
+        })
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success:false,
+            message:"login failed"
+        })
+      }
 }
