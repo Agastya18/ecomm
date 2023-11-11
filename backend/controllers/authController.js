@@ -107,7 +107,7 @@ export const login =async (req,res)=>{
         
         }
         //token generation
-        const token =  JWT.sign({id:existingUser._id},process.env.JWT_Secret,{expiresIn:"7d"});
+        const token =  JWT.sign({id:existingUser._id},process.env.JWT_Secret,{expiresIn:"1h"});
         res.status(200).json({
             success:true,
             message:"login success",
@@ -121,4 +121,11 @@ export const login =async (req,res)=>{
             message:"login failed"
         })
       }
+}
+// test
+export const test = (req,res)=>{
+    res.status(200).json({
+        success:true,
+        message:"protected route",
+    })
 }
