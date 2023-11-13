@@ -77,8 +77,8 @@ export const register =async (req,res)=>{
 // Login user
 export const login =async (req,res)=>{
       try {
-        const {email, password} = req.body;
-        if(!email || !password)
+        const {email, pass} = req.body;
+        if(!email || !pass)
         {
             return res.status(400).json({
                 success:false,
@@ -98,7 +98,7 @@ export const login =async (req,res)=>{
         
         }
         //check password
-        const matchPassword = await comparePassword(password,existingUser.password);
+        const matchPassword = await comparePassword(pass,existingUser.password);
         if(!matchPassword)
         {
             return res.status(400).json({

@@ -20,7 +20,7 @@ const Register = () => {
             return
         }
         try {
-            const res=  await axios.post('/api/v1/auth/register',{name,pass,email,phone,address})
+            const res =  await axios.post('/api/v1/auth/register',{name,pass,email,phone,address})
            
             if(res.data.success){
             

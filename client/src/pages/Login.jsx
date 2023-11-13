@@ -1,11 +1,15 @@
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 const Login = () => {
 
     const [pass,setPass]= useState("")
   const [email,setEmail]= useState("")
-  const handleSubmit=(e)=>{
+  const navigate = useNavigate()
+  const handleSubmit=async(e)=>{
     e.preventDefault()
     console.log(pass,email)
     if( !pass || !email){
@@ -13,6 +17,16 @@ const Login = () => {
         return
     }
     //api call
+    try {
+         const res= await axios.post('/api/v1/auth/login',{email,pass})
+         if(res.data.success){
+             toast.success("Login successful")
+             navigate('/')
+             }
+    } catch (error) {
+      
+      toast.error("An error occurred")
+    }
 
 }
   return (
