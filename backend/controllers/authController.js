@@ -3,7 +3,8 @@ import { comparePassword, hashPassword } from "../utils/authUtils.js";
 import JWT from "jsonwebtoken";
 export const register =async (req,res)=>{
     try {
-        const {name,email, password,phone,address} = req.body;
+        const {name,email, pass,phone,address} = req.body;
+        console.log(name, email, pass,phone,address);
         if(!name)
         {
             return res.status(400).json({
@@ -20,7 +21,7 @@ export const register =async (req,res)=>{
             })
         
         }
-        if(!password)
+        if(!pass)
         {
             return res.status(400).json({
                 success:false,
@@ -55,7 +56,7 @@ export const register =async (req,res)=>{
         
         }
         //register user
-       const hashedPassword = await hashPassword(password);
+       const hashedPassword = await hashPassword(pass);
         const user= new User({name,email,password:hashedPassword,phone,address});
         await user.save();
         res.status(200).json({

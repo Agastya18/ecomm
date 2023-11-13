@@ -1,7 +1,9 @@
 import dotenv from 'dotenv'
 import express from 'express';
 import connectDB from './config/db.js';
+
 import authRoute from './routes/authRoute.js'
+
 dotenv.config({
     path:'.env'
 });
@@ -11,6 +13,7 @@ const app = express();
 connectDB()
 
 //middleware
+// app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 

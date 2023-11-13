@@ -2,16 +2,37 @@
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 const Register = () => {
     const [name,setName]= useState("")
     const [pass,setPass]= useState("")
     const [email,setEmail]= useState("")
-    const handleSubmit=(e)=>{
-        e.preventDefault()
-        console.log(name,pass,email)
-        if(!name || !pass || !email){
+    const [phone,setPhone]= useState("")
+    const [address,setAddress]= useState("")
+    const navigate=useNavigate()
+    const handleSubmit=async(e)=>{
+        e.preventDefault()  
+        console.log(name,pass,email,phone,address)
+        if(!name || !pass || !email || !phone || !address){
             alert('please fill all the fields')
             return
+        }
+        try {
+            const res=  await axios.post('/api/v1/auth/register',{name,pass,email,phone,address})
+           
+            if(res.data.success){
+            
+                toast.success(res.data.message)
+                navigate('/login')
+            }else{
+             
+                toast.error(res.data.message)
+            }
+        } catch (error) {
+          
+          toast.error("An error occurred")
         }
         //api call
 
@@ -45,6 +66,22 @@ const Register = () => {
                     id="password"
                    value={pass}
                    onChange={(e)=>setPass(e.target.value)}
+                   className=' w-full p-2 border border-gray-300 rounded-md focus:outline-none '
+                />
+                <label  className=' block text-gray-600 mt-4'>Phone: </label>
+                 <input 
+                    type="text"
+                   
+                   value={phone}
+                   onChange={(e)=>setPhone(e.target.value)}
+                   className=' w-full p-2 border border-gray-300 rounded-md focus:outline-none '
+                />
+                <label  className=' block text-gray-600 mt-4'>Address: </label>
+                 <input 
+                    type="text"
+                   
+                   value={address}
+                   onChange={(e)=>setAddress(e.target.value)}
                    className=' w-full p-2 border border-gray-300 rounded-md focus:outline-none '
                 />
                 
