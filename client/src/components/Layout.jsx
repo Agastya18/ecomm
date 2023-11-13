@@ -1,10 +1,17 @@
 import Header from './Header'
 import Footer from './Footer'
-const Layout = ({children}) => {
+import {Helmet} from 'react-helmet'
+const Layout = ({children,title}) => {
   return (
     <div>
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>{title}</title>
+    
+
+    </Helmet>
      <Header />
-    <main  style={{ minHeight: "70vh" }}>
+    <main className='  h-[80vh]' >
    
       {children}
 
@@ -15,3 +22,4 @@ const Layout = ({children}) => {
 }
 
 export default Layout
+// style={{ minHeight: "70vh" }}
