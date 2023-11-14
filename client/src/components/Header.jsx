@@ -1,7 +1,20 @@
 import {NavLink} from 'react-router-dom'
 import {GiShoppingBag,GiShoppingCart} from 'react-icons/gi'
-import {PiShoppingCartFill} from 'react-icons/pi'
+import { useAuth } from '../context/auth'
+import toast from 'react-hot-toast'
+
 const Header = () => {
+  const [auth ,setAuth] = useAuth()
+  const handleLogout=()=>{
+    setAuth({
+      ...auth,
+      user:null,
+      token:""
+
+    })
+    localStorage.removeItem('auth')
+    toast.success("Logout successful")
+  }
   return (
     <div className="  h-[10vh] flex items-center  shadow-md justify-around ">
       <div className=' flex '>
@@ -19,12 +32,20 @@ const Header = () => {
           <li>
           <NavLink to="/contact"  className=" hover:text-indigo-600  text-xl active:text-indigo-600 ">contact</NavLink>
           </li>
-          <li>
+          {
+            !auth.user? (<>
+              <li>
           <NavLink to="/register"  className=" hover:text-indigo-600  text-xl active:text-indigo-600 ">Register</NavLink>
           </li>
           <li>
           <NavLink to="/login"  className=" hover:text-indigo-600  text-xl active:text-indigo-600 ">Login</NavLink>
           </li>
+            </>):(<>
+              <li>
+          <NavLink onClick={handleLogout} to="/login"  className=" hover:text-indigo-600  text-xl active:text-indigo-600 ">Logout</NavLink>
+          </li>
+            </>)
+          }
           <li>
           <NavLink to="/cart"  className=" hover:text-indigo-600  text-xl active:text-indigo-600 ">Cart(0)</NavLink>
           </li>

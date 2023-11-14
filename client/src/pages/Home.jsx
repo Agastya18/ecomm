@@ -2,7 +2,7 @@
 import Layout from '../components/Layout'
 import { useAuth } from '../context/auth'
 const Home = () => {
-  const {auth, setAuth} = useAuth()
+  const [auth, setAuth] = useAuth()
   return (
     <Layout title={"home"} >
       <div className=' bg-red-400 h-[100%]'>

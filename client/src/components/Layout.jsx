@@ -1,7 +1,7 @@
 import Header from './Header'
 import Footer from './Footer'
 import {Helmet} from 'react-helmet'
-import  { Toaster } from 'react-hot-toast';
+
 const Layout = ({children,title}) => {
   return (
     <div>
@@ -13,7 +13,7 @@ const Layout = ({children,title}) => {
     </Helmet>
      <Header />
     <main className='  h-[80vh]' >
-    <Toaster />
+    
       {children}
 
     </main>
