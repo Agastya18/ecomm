@@ -9,7 +9,7 @@ const Header = () => {
         <h1 className="text-2xl font-bold ml-[20%]  " style={{ fontFamily:"Lumanosimo" }}>  
          Logo</h1>
       </div>
-        <ul  className=" flex gap-3 font-bold  ml-[20%]   " style={{ fontFamily:"Lumanosimo" }}>
+        <ul  className=" flex gap-5 font-bold  ml-[20%]   " style={{ fontFamily:"Lumanosimo" }}>
           <li>
           <NavLink to="/" className=" hover:text-indigo-600  text-xl active:text-indigo-600 ">home</NavLink>
           </li>
@@ -24,6 +24,9 @@ const Header = () => {
           </li>
           <li>
           <NavLink to="/login"  className=" hover:text-indigo-600  text-xl active:text-indigo-600 ">Login</NavLink>
+          </li>
+          <li>
+          <NavLink to="/cart"  className=" hover:text-indigo-600  text-xl active:text-indigo-600 ">Cart(0)</NavLink>
           </li>
         </ul>
      
